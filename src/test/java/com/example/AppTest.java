@@ -2,9 +2,12 @@ package com.example;
 
 import java.io.FileInputStream;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.AfterClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,6 +28,7 @@ public class AppTest
      * Rigorous Test :-)
      */
     WebDriver driver;
+    private static final Logger log=Logger.getLogger(AppTest.class);
     @BeforeMethod
     public void setup(){
         WebDriverManager.chromedriver().setup();
@@ -35,6 +39,7 @@ public class AppTest
     @Test
     public void testcaseone() throws Exception
     {
+
         Thread.sleep(5000);
         WebElement drop=driver.findElement(By.xpath("//*[@id=\"rhf_header_element\"]/nav/div/div[3]/form/div/div[1]"));
         drop.click();
@@ -59,6 +64,7 @@ public class AppTest
         }
         Thread.sleep(5000);
         workbook.close();
+        log.info("Test case one executed successfully");
     }
     @Test
     public void testcasetwo() throws Exception{
@@ -107,5 +113,11 @@ public class AppTest
     @AfterMethod
     public void closeMethod(){
         driver.quit();
+    }
+    @AfterClass
+    public void log4j()throws Exception{
+        PropertyConfigurator.configure("C:\\Users\\subas\\Documents\\cc2\\src");
+
+
     }
 }
