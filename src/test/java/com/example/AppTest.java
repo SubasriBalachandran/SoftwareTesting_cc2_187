@@ -1,7 +1,9 @@
 package com.example;
 
+import java.io.File;
 import java.io.FileInputStream;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -9,6 +11,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.AfterClass;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -35,6 +39,7 @@ public class AppTest
         driver=new ChromeDriver();
         driver.get("https://www.barnesandnoble.com/");
         driver.manage().window().maximize();
+        PropertyConfigurator.configure("C:\\Users\\subas\\Documents\\cc2\\src");
     }
     @Test
     public void testcaseone() throws Exception
@@ -99,25 +104,16 @@ public class AppTest
         Thread.sleep(5000);
         driver.findElement(By.xpath("//*[@id=\"rewards-modal-link\"]")).click();
         Thread.sleep(5000);
-        driver.switchTo().alert();
+       // driver.switchTo().alert();
         Thread.sleep(5000);
-        WebElement signin=driver.findElement(By.xpath("//*[@id='dialog-title']"));
-        String txt=signin.getText();
-        if(txt.contains("Sigin ")){
-            System.out.println("Text present");
-        }
-        else{
-            System.out.println("Text not present");
-        }
+         File screen = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        String path = "C:\\Users\\subas\\Documents\\cc2\\src\\screenshot.png";
+        FileUtils.copyFile(screen, new File(path));
     }
     @AfterMethod
     public void closeMethod(){
         driver.quit();
     }
-    @AfterClass
-    public void log4j()throws Exception{
-        PropertyConfigurator.configure("C:\\Users\\subas\\Documents\\cc2\\src");
+   
 
-
-    }
 }
