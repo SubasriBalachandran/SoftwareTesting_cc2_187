@@ -93,6 +93,8 @@ public class AppTest
         Thread.sleep(5000);
         driver.findElement(By.xpath("//*[@id=\"rewards-modal-link\"]")).click();
         Thread.sleep(5000);
+        driver.switchTo().alert();
+        Thread.sleep(5000);
         WebElement signin=driver.findElement(By.xpath("//*[@id='dialog-title']"));
         String txt=signin.getText();
         if(txt.contains("Sigin ")){
