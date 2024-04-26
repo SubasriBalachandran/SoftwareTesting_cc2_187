@@ -84,7 +84,23 @@ public class AppTest
         else{
             System.out.println("Item Not added to Cart");
         }
-
+    }
+    @Test
+    public void testcasethree()throws Exception{
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("/html/body/main/div[3]/div[3]/div/section/div/div/div/div/div/a[1]/div")).click();
+        driver.findElement(By.xpath("//*[@id='mb-landing']/div[1]/div[2]/div/div/div[2]/div/div[70]/div"));
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("//*[@id=\"rewards-modal-link\"]")).click();
+        Thread.sleep(5000);
+        WebElement signin=driver.findElement(By.xpath("//*[@id='dialog-title']"));
+        String txt=signin.getText();
+        if(txt.contains("Sigin ")){
+            System.out.println("Text present");
+        }
+        else{
+            System.out.println("Text not present");
+        }
     }
     @AfterMethod
     public void closeMethod(){
