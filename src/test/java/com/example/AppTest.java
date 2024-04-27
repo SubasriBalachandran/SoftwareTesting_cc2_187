@@ -21,6 +21,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 /**
@@ -32,6 +36,8 @@ public class AppTest
      * Rigorous Test :-)
      */
     WebDriver driver;
+    ExtentReports report;
+    ExtentTest test;
     private static final Logger log=Logger.getLogger(AppTest.class);
     @BeforeMethod
     public void setup(){
@@ -39,7 +45,11 @@ public class AppTest
         driver=new ChromeDriver();
         driver.get("https://www.barnesandnoble.com/");
         driver.manage().window().maximize();
-        PropertyConfigurator.configure("C:\\Users\\subas\\Documents\\cc2\\src");
+        ExtentSparkReporter spark=new ExtentSparkReporter("C:\\Users\\subas\\Documents\\cc2\\src\\report.html");
+        report=new ExtentReports();
+        report.attachReporter(spark);
+        log.info("Successfully opened");
+        PropertyConfigurator.configure("C:\\Users\\subas\\Documents\\cc2\\src\\main\\java\\com\\example\\resources\\log4j.properties");
     }
     @Test
     public void testcaseone() throws Exception
@@ -95,6 +105,7 @@ public class AppTest
         else{
             System.out.println("Item Not added to Cart");
         }
+        log.info("Test case two executed successfully");
     }
     @Test
     public void testcasethree()throws Exception{
@@ -104,11 +115,12 @@ public class AppTest
         Thread.sleep(5000);
         driver.findElement(By.xpath("//*[@id=\"rewards-modal-link\"]")).click();
         Thread.sleep(5000);
-       // driver.switchTo().alert();
+        // driver.switchTo().alert();
         Thread.sleep(5000);
-         File screen = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        File screen = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String path = "C:\\Users\\subas\\Documents\\cc2\\src\\screenshot.png";
         FileUtils.copyFile(screen, new File(path));
+        log.info("Test case three executed successfully");
     }
     @AfterMethod
     public void closeMethod(){
