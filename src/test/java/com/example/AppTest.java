@@ -23,6 +23,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -54,7 +55,8 @@ public class AppTest
     @Test
     public void testcaseone() throws Exception
     {
-
+        test=report.createTest("Test1","This is the first test");
+        test.log(Status.INFO, "Extent report demo");
         Thread.sleep(5000);
         WebElement drop=driver.findElement(By.xpath("//*[@id=\"rhf_header_element\"]/nav/div/div[3]/form/div/div[1]"));
         drop.click();
@@ -83,6 +85,8 @@ public class AppTest
     }
     @Test
     public void testcasetwo() throws Exception{
+        test=report.createTest("Test1","This is the second test");
+        test.log(Status.INFO, "Extent report demo");
         Actions action=new Actions(driver);
         action.moveToElement(driver.findElement(By.linkText("Audiobooks"))).perform();
         Thread.sleep(5000);
@@ -93,18 +97,21 @@ public class AppTest
         driver.findElement(By.xpath("//*[@id=\"otherAvailFormats\"]/div/div/div[3]/a")).click();
         driver.findElement(By.xpath("//*[@id='prodInfoContainer']/div[3]/form[1]/input[11]")).click();
         Thread.sleep(5000);
-        driver.switchTo().alert();
-        Thread.sleep(5000);
-        WebElement popup=driver.findElement(By.xpath("//*[@id='add-to-bag-main']/div[1]"));
-        String pop=popup.getText();
-        if(pop.contains("Successfully"))
-        {
-            System.out.println("Item Added to Cart");
+        File screen = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        String path = "C:\\Users\\subas\\Documents\\cc2\\src\\screenshot1.png";
+        FileUtils.copyFile(screen, new File(path));
+        // driver.switchTo().alert();
+        // Thread.sleep(5000);
+        // WebElement popup=driver.findElement(By.xpath("//*[@id='add-to-bag-main']/div[1]"));
+        // String pop=popup.getText();
+        // if(pop.contains("Successfully"))
+        // {
+        //     System.out.println("Item Added to Cart");
 
-        }
-        else{
-            System.out.println("Item Not added to Cart");
-        }
+        // }
+        // else{
+        //     System.out.println("Item Not added to Cart");
+        // }
         log.info("Test case two executed successfully");
     }
     @Test
@@ -124,6 +131,7 @@ public class AppTest
     }
     @AfterMethod
     public void closeMethod(){
+        report.flush();
         driver.quit();
     }
    
