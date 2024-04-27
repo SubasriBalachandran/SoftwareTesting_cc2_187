@@ -45,7 +45,7 @@ public class AppTest
         driver=new ChromeDriver();
         driver.get("https://www.barnesandnoble.com/");
         driver.manage().window().maximize();
-        ExtentSparkReporter spark=new ExtentSparkReporter("C:\\Users\\subas\\Documents\\cc2\\src\\report.html");
+        ExtentSparkReporter spark=new ExtentSparkReporter("C:\\Users\\subas\\Documents\\cc2\\src");
         report=new ExtentReports();
         report.attachReporter(spark);
         log.info("Successfully opened");
