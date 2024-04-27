@@ -9,7 +9,6 @@ import org.apache.log4j.PropertyConfigurator;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.junit.AfterClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -95,8 +94,10 @@ public class AppTest
         driver.findElement(By.linkText("Funny Story")).click();
         Thread.sleep(5000);
         driver.findElement(By.xpath("//*[@id=\"otherAvailFormats\"]/div/div/div[3]/a")).click();
-        driver.findElement(By.xpath("//*[@id='prodInfoContainer']/div[3]/form[1]/input[11]")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//*[@id=\"prodInfoContainer\"]/div[3]/form[1]/input[11]")).click();
         Thread.sleep(5000);
+        
         File screen = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String path = "C:\\Users\\subas\\Documents\\cc2\\src\\screenshot1.png";
         FileUtils.copyFile(screen, new File(path));
